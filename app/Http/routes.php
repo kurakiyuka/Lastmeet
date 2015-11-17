@@ -14,9 +14,9 @@
 use App\Task;
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
+Route::get('/', function() {
     return view('welcome');
-})->middleware('guest');
+});
 
 // Authentication Routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
