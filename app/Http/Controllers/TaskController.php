@@ -7,6 +7,7 @@ use App\Task;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\TaskRepository;
+use DB;
 
 class TaskController extends Controller
 {
@@ -37,6 +38,17 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        /**
+         * Use SQL raw query
+         *
+         * return view('tasks.index', [
+         * 'tasks' => DB::select('select * from lm_tasks where user_id = ?', [$request->user()->id])
+         * ]);
+         */
+
+        /**
+         * Recommended usage in laravel quickstart guide
+         */
         return view('tasks.index', [
             'tasks' => $this->tasks->forUser($request->user()),
         ]);
