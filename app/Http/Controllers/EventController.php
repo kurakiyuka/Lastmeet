@@ -3,35 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Task;
+use App\Event;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Repositories\TaskRepository;
+use App\Repositories\EventRepository;
 use DB;
 
-class TaskController extends Controller
+class EventController extends Controller
 {
     /**
-     * The task repository instance.
+     * The event repository instance.
      *
-     * @var TaskRepository
+     * @var EventRepository
      */
-    protected $tasks;
+    protected $events;
 
     /**
      * Create a new controller instance.
      *
-     * @param TaskRepository $tasks
+     * @param EventRepository $events
      * @return void
      */
-    public function __construct(TaskRepository $tasks)
+    public function __construct(EventRepository $events)
     {
         $this->middleware('auth');
-        $this->tasks = $tasks;
+        $this->events = $events;
     }
 
     /**
-     * Display a list of all of the user's task.
+     * Display a list of all of the user's events.
      *
      * @param Request $request
      * @return Response
@@ -41,21 +41,21 @@ class TaskController extends Controller
         /**
          * Use SQL raw query
          *
-         * return view('tasks.index', [
-         * 'tasks' => DB::select('select * from lm_tasks where user_id = ?', [$request->user()->id])
+         * return view('events.index', [
+         * 'events' => DB::select('select * from lm_events where user_id = ?', [$request->user()->id])
          * ]);
          */
 
         /**
          * Recommended usage in laravel quickstart guide
          */
-        return view('tasks.index', [
-            'tasks' => $this->tasks->forUser($request->user()),
+        return view('events.index', [
+            'events' => $this->events->forUser($request->user()),
         ]);
     }
 
     /**
-     * Create a new task.
+     * Create a new event.
      *
      * @param Request $request
      * @return Response
@@ -66,23 +66,23 @@ class TaskController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        $request->user()->tasks()->create([
+        $request->user()->events()->create([
             'name' => $request->name,
         ]);
 
-        return redirect('tasks');
+        return redirect('events');
     }
 
     /**
-     * Destroy the given task.
+     * Destroy the given event.
      *
      * @param Request $request
-     * @param string $taskId
+     * @param Event $event
      * @return Response
      */
-    public function destroy(Request $request, Task $task){
-        $this->authorize('destroy', $task);
-        $task->delete();
-        return redirect('tasks');
+    public function destroy(Request $request, Event $event){
+        $this->authorize('destroy', $event);
+        $event->delete();
+        return redirect('/events');
     }
 }

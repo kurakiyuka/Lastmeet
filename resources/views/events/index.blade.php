@@ -3,8 +3,8 @@
 @section('content')
 
     <div class="col-sm-offset-2 col-sm-8">
-        <!-- Current Tasks -->
-        @if (count($tasks) > 0)
+        <!-- Current Events -->
+        @if (count($events) > 0)
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Current Events
@@ -21,15 +21,15 @@
 
                         <!-- Table Body -->
                         <tbody>
-                        @foreach ($tasks as $task)
+                        @foreach ($events as $event)
                             <tr>
                                 <!-- Task Name -->
                                 <td class="table-text">
-                                    <div>{{ $task->name }}</div>
+                                    <div>{{ $event->name }}</div>
                                 </td>
 
                                 <td>
-                                    <form action="task/{{ $task->id }}" method="POST">
+                                    <form action="/event/{{ $event->id }}" method="POST">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
 
@@ -58,10 +58,19 @@
                     @include('common.errors')
 
                             <!-- New Event Form -->
-                    <form action="task" method="POST" class="form-horizontal">
+                    <form action="event" method="POST" class="form-horizontal">
                         {{ csrf_field() }}
 
-                                <!-- Event Name -->
+                                <!-- Event Time -->
+                        <div class="form-group">
+                            <label for="event-time" class="col-sm-3 control-label">Event Time</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="content" id="event-time" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Event Name -->
                         <div class="form-group">
                             <label for="event-name" class="col-sm-3 control-label">Event Name</label>
 
@@ -77,6 +86,60 @@
 
                             <div class="col-sm-6">
                                 <input type="text" name="content" id="event-content" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Friend -->
+                        <div class="form-group">
+                            <label for="friend" class="col-sm-3 control-label">With Friend</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="content" id="friend" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Mood -->
+                        <div class="form-group">
+                            <label for="mood" class="col-sm-3 control-label">Mood</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="content" id="mood" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Weather -->
+                        <div class="form-group">
+                            <label for="weather" class="col-sm-3 control-label">Weather</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="content" id="weather" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label for="location" class="col-sm-3 control-label">Location</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="content" id="location" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Label -->
+                        <div class="form-group">
+                            <label for="label" class="col-sm-3 control-label">Label</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="content" id="label" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Photos -->
+                        <div class="form-group">
+                            <label for="photo" class="col-sm-3 control-label">Photos</label>
+
+                            <div class="col-sm-6">
+                                <input type="text" name="content" id="photo" class="form-control">
                             </div>
                         </div>
 
