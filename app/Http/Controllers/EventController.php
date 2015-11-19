@@ -67,10 +67,17 @@ class EventController extends Controller
         ]);
 
         $request->user()->events()->create([
+            'time' => $request->time,
             'name' => $request->name,
+            'detail' => $request->detail,
+            'friend' => $request->friend,
+            'mood' => $request->mood,
+            'weather' => $request->weather,
+            'location' => $request->location,
+            'label' => $request->label,
         ]);
 
-        return redirect('events');
+        return redirect('/events');
     }
 
     /**
@@ -80,7 +87,8 @@ class EventController extends Controller
      * @param Event $event
      * @return Response
      */
-    public function destroy(Request $request, Event $event){
+    public function destroy(Request $request, Event $event)
+    {
         $this->authorize('destroy', $event);
         $event->delete();
         return redirect('/events');

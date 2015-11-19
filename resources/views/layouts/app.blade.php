@@ -25,18 +25,26 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
-                        <li><a href="/auth/register"><i class="fa fa-btn fa-heart"></i>Register</a></li>
-                        <li><a href="/auth/login"><i class="fa fa-btn fa-sign-in"></i>Login</a></li>
+                        <li><a href="/auth/register">Register</a></li>
+                        <li><a href="/auth/login">Login</a></li>
                     @else
-                        <li class="navbar-text"><i class="fa fa-btn fa-user"></i>{{ Auth::user()->name }}</li>
-                        <li><a href="/auth/logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        <li><a href="/events">{{ Auth::user()->name }}</a></li>
+                        <li><a href="/auth/logout">Logout</a></li>
                     @endif
                 </ul>
             </div>
         </div>
     </nav>
 
-@yield('content')
+    @yield('content')
+
+    <div class="clearfix"></div>
+    <hr class="featurette-divider">
+    <footer>
+        <p class="pull-right">© 2015 YUUKI · Powered By <a href="//laravel.com" target="_blank">Laravel</a> · <a
+                    href="//bootcss.com" target="_blank">Bootstrap</a></p>
+    </footer>
+</div>
 
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
