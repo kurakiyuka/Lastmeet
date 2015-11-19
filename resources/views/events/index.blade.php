@@ -16,8 +16,7 @@
 
                         <div>{{ $event->detail }}</div>
                         @if( $event->photo)
-                            <a href="upload/{{ $event->photo }}" target="_blank"><img width="400"
-                                                                                      src="upload/{{ $event->photo }}"></a>
+                            <a href="upload/{{ $event->photo }}" target="_blank"><img class="event-image" src="upload/{{ $event->photo }}"></a>
                         @endif
                         <hr class="featurette-divider">
                         <div>
