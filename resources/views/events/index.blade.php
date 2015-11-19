@@ -15,6 +15,10 @@
                         <h2>{{ $event->name }}</h2>
 
                         <div>{{ $event->detail }}</div>
+                        @if( $event->photo)
+                            <a href="upload/{{ $event->photo }}" target="_blank"><img width="400"
+                                                                                      src="upload/{{ $event->photo }}"></a>
+                        @endif
                         <hr class="featurette-divider">
                         <div>
                             <span>心情：{{ $event->mood }}</span><span> 天气：{{ $event->weather }}</span><span> 标签：{{ $event->label }}</span>
@@ -43,7 +47,8 @@
                         @include('common.errors')
 
                                 <!-- New Event Form -->
-                        <form action="event" method="POST" class="form-horizontal">
+                        <form action="event" method="POST" class="form-horizontal" enctype="multipart/form-data"
+                              role="form">
                             {{ csrf_field() }}
 
                                     <!-- Event Time -->
@@ -70,7 +75,7 @@
                                 <label for="event-detail" class="col-sm-3 control-label">Detail</label>
 
                                 <div class="col-sm-6">
-                                    <input type="text" name="detail" id="event-detail" class="form-control">
+                                    <textarea rows="3" name="detail" id="event-detail" class="form-control"></textarea>
                                 </div>
                             </div>
 
@@ -88,7 +93,12 @@
                                 <label for="mood" class="col-sm-3 control-label">Mood</label>
 
                                 <div class="col-sm-6">
-                                    <input type="text" name="mood" id="mood" class="form-control">
+                                    <select name="mood" id="mood" class="form-control">
+                                        <option>很好</option>
+                                        <option>好</option>
+                                        <option>一般</option>
+                                        <option>不好</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -97,7 +107,13 @@
                                 <label for="weather" class="col-sm-3 control-label">Weather</label>
 
                                 <div class="col-sm-6">
-                                    <input type="text" name="weather" id="weather" class="form-control">
+                                    <select name="weather" id="weather" class="form-control">
+                                        <option>晴朗</option>
+                                        <option>多云</option>
+                                        <option>阴天</option>
+                                        <option>小雨</option>
+                                        <option>大雨</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -124,7 +140,7 @@
                                 <label for="photo" class="col-sm-3 control-label">Photos</label>
 
                                 <div class="col-sm-6">
-                                    <input type="text" name="photo" id="photo" class="form-control">
+                                    <input type="file" name="photo" id="photo" class="form-control">
                                 </div>
                             </div>
 
@@ -132,7 +148,7 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-6">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-btn fa-plus"></i>Add Event
+                                        Add Event
                                     </button>
                                 </div>
                             </div>

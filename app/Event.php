@@ -11,7 +11,7 @@ class Event extends Model
      *
      * @var array
      */
-    protected $fillable = ['time','name','detail','friend','mood','weather','location','label'];
+    protected $fillable = ['time','name','detail','friend','mood','weather','location','label','photo'];
 
     /**
      * Get the user that owns the event.

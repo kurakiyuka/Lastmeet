@@ -7,7 +7,8 @@ use App\Event;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\EventRepository;
-use DB;
+use Storage;
+use Auth;
 
 class EventController extends Controller
 {
@@ -66,6 +67,16 @@ class EventController extends Controller
             'name' => 'required|max:255',
         ]);
 
+        if($request->hasFile('photo')) {
+            $dir = 'users/'.Auth::user()->name.'/';
+            $newFileName = md5(time().rand(0,10000)).'.'.$request->file('photo')->getClientOriginalExtension();
+            $savePath = $dir.$newFileName;
+            Storage::put(
+                $savePath,
+                file_get_contents($request->file('photo')->getRealPath())
+            );
+        }
+
         $request->user()->events()->create([
             'time' => $request->time,
             'name' => $request->name,
@@ -75,6 +86,7 @@ class EventController extends Controller
             'weather' => $request->weather,
             'location' => $request->location,
             'label' => $request->label,
+            'photo' => $savePath,
         ]);
 
         return redirect('/events');
