@@ -8,7 +8,14 @@
             @foreach ($events as $event)
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span>{{ $event->time }}</span> <span>我和{{ $event->friend }} 在{{ $event->location }}</span>
+                        <span class="glyphicon glyphicon-time"
+                              aria-hidden="true"></span><span> {{ $event->time }}</span>
+                        <span
+                                class="glyphicon glyphicon-user"
+                                aria-hidden="true"></span><span> 我和<a href="/events/{{ $event->friend }}">{{ $event->friend }}</a></span>
+                        <span
+                                class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><span>
+                        在{{ $event->location }}</span>
                     </div>
 
                     <div class="panel-body">
@@ -16,7 +23,9 @@
 
                         <div>{{ $event->detail }}</div>
                         @if( $event->photo)
-                            <a href="upload/{{ $event->photo }}" target="_blank"><img class="event-image" src="upload/{{ $event->photo }}"></a>
+                            <hr class="featurette-divider">
+                            <a href="/upload/{{ $event->photo }}" target="_blank"><img class="event-image"
+                                                                                      src="/upload/{{ $event->photo }}"></a>
                         @endif
                         <hr class="featurette-divider">
                         <div>

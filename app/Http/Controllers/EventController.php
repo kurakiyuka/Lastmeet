@@ -7,6 +7,7 @@ use App\Event;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\EventRepository;
+use DB;
 use Storage;
 use Auth;
 
@@ -51,7 +52,20 @@ class EventController extends Controller
          * Recommended usage in laravel quickstart guide
          */
         return view('events.index', [
-            'events' => $this->events->forUser($request->user()),
+            'events' => $this->events->findAllEventsForUser($request->user()),
+        ]);
+    }
+
+    /**
+     * Display a list of events which match the keyword
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function findKeyWord(Request $request, $keyword)
+    {
+        return view('events.index', [
+            'events' => DB::select('select * from lm_events where user_id = ? && friend = ?', [Auth::user()->id, $keyword])
         ]);
     }
 
@@ -67,10 +81,10 @@ class EventController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        if($request->hasFile('photo')) {
-            $dir = 'users/'.Auth::user()->name.'/';
-            $newFileName = md5(time().rand(0,10000)).'.'.$request->file('photo')->getClientOriginalExtension();
-            $savePath = $dir.$newFileName;
+        if ($request->hasFile('photo')) {
+            $dir = 'users/' . Auth::user()->name . '/';
+            $newFileName = md5(time() . rand(0, 10000)) . '.' . $request->file('photo')->getClientOriginalExtension();
+            $savePath = $dir . $newFileName;
             Storage::put(
                 $savePath,
                 file_get_contents($request->file('photo')->getRealPath())

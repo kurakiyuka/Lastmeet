@@ -12,10 +12,25 @@ class EventRepository{
      * @param User $user
      * @return Collection
      */
-    public function forUser(User $user)
+    public function findAllEventsForUser(User $user)
     {
         return Event::where('user_id', $user->id)
             ->orderBy('created_at', 'asc')
             ->get();
     }
+
+    /**
+     * Get a list of events with some specified keyword.
+     *
+     * @param User $user
+     * @return Collection
+     */
+    /*
+    public function findKeyWordEvent(User $user)
+    {
+        return Event::where('user_id', $user->id)
+            ->orderBy('created_at', 'asc')
+            ->get();
+    }
+    */
 }

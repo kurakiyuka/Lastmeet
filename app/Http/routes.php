@@ -25,5 +25,6 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 Route::get('/events', 'EventController@index');
+Route::get('/events/{keyword}', 'EventController@findKeyWord');
 Route::post('/event', 'EventController@store');
 Route::delete('/event/{event}', 'EventController@destroy');
