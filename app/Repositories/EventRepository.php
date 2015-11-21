@@ -15,7 +15,7 @@ class EventRepository{
     public function findAllEventsForUser(User $user)
     {
         return Event::where('user_id', $user->id)
-            ->orderBy('created_at', 'asc')
+            ->orderBy('time', 'dsc')
             ->get();
     }
 

@@ -24,7 +24,6 @@ class EventController extends Controller
      * Create a new controller instance.
      *
      * @param EventRepository $events
-     * @return void
      */
     public function __construct(EventRepository $events)
     {
@@ -41,14 +40,6 @@ class EventController extends Controller
     public function index(Request $request)
     {
         /**
-         * Use SQL raw query
-         *
-         * return view('events.index', [
-         * 'events' => DB::select('select * from lm_events where user_id = ?', [$request->user()->id])
-         * ]);
-         */
-
-        /**
          * Recommended usage in laravel quickstart guide
          */
         return view('events.index', [
@@ -60,12 +51,15 @@ class EventController extends Controller
      * Display a list of events which match the keyword
      *
      * @param Request $request
+     * @param string $key
+     * @param string $value
      * @return Response
      */
-    public function findKeyWord(Request $request, $keyword)
+    public function findKeyWord(Request $request, $key, $value)
     {
+        $queryStr = 'select * from lm_events where user_id = ? && ' . $key . ' = ?';
         return view('events.index', [
-            'events' => DB::select('select * from lm_events where user_id = ? && friend = ?', [Auth::user()->id, $keyword])
+            'events' => DB::select($queryStr, [Auth::user()->id, $value])
         ]);
     }
 
@@ -89,6 +83,8 @@ class EventController extends Controller
                 $savePath,
                 file_get_contents($request->file('photo')->getRealPath())
             );
+        } else {
+            $savePath = '';
         }
 
         $request->user()->events()->create([
