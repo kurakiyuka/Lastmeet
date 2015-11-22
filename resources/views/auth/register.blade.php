@@ -55,9 +55,7 @@
                         <!-- Register Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fa fa-btn fa-sign-in"></i>Register
-                                </button>
+                                <button type="submit" class="btn btn-default">Register</button>
                             </div>
                         </div>
                     </form>

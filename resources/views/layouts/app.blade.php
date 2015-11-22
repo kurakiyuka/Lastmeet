@@ -150,6 +150,7 @@
                             <div class="col-sm-8">
                                 <input type="file" name="photo" id="photo" class="form-control">
                             </div>
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="modal-footer">

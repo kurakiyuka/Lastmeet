@@ -37,9 +37,7 @@
                         <!-- Login Button -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fa fa-btn fa-sign-in"></i>Login
-                                </button>
+                                <button type="submit" class="btn btn-default">Login</button>
                             </div>
                         </div>
                     </form>
