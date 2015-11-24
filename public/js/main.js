@@ -7,3 +7,8 @@ $('.form_date').datetimepicker({
     minView: 0,
     forceParse: 0
 });
+
+$(".glyphicon-plus").bind("click", function(){
+
+    $(".modal-body").append();
+});

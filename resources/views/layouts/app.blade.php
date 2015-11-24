@@ -144,11 +144,11 @@
                         </div>
 
                         <!-- Photos -->
-                        <div class="form-group">
+                        <div class="form-group photo-select">
                             <label for="photo" class="col-sm-3 control-label">Photos</label>
 
                             <div class="col-sm-8">
-                                <input type="file" name="photo" id="photo" class="form-control">
+                                <input type="file" name="photo[]" id="photo" class="form-control">
                             </div>
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         </div>
