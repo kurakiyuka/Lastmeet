@@ -10,5 +10,5 @@ $('.form_date').datetimepicker({
 
 $(".glyphicon-plus").bind("click", function(){
 
-    $(".modal-body").append();
+    $(".modal-body").append($(".photo-select").clone());
 });

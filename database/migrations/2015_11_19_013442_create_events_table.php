@@ -23,7 +23,6 @@ class CreateEventsTable extends Migration
             $table->string('weather');
             $table->string('location');
             $table->string('label');
-            $table->string('photo');
             $table->timestamps();
         });
     }

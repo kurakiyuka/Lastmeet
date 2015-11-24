@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Event;
+use App\Photo;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\EventRepository;
@@ -39,11 +40,12 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        /**
-         * Recommended usage in laravel quickstart guide
-         */
+        $events = $this->events->findAllEventsForUser($request->user());
+        foreach ($events as &$event){
+
+        }
         return view('events.index', [
-            'events' => $this->events->findAllEventsForUser($request->user()),
+            'events' => $events,
         ]);
     }
 
@@ -75,19 +77,7 @@ class EventController extends Controller
             'name' => 'required|max:255',
         ]);
 
-        if ($request->hasFile('photo')) {
-            $dir = 'users/' . Auth::user()->name . '/';
-            $newFileName = md5(time() . rand(0, 10000)) . '.' . $request->file('photo')->getClientOriginalExtension();
-            $savePath = $dir . $newFileName;
-            Storage::put(
-                $savePath,
-                file_get_contents($request->file('photo')->getRealPath())
-            );
-        } else {
-            $savePath = '';
-        }
-
-        $request->user()->events()->create([
+        $event_id = $request->user()->events()->create([
             'time' => $request->time,
             'name' => $request->name,
             'detail' => $request->detail,
@@ -96,8 +86,24 @@ class EventController extends Controller
             'weather' => $request->weather,
             'location' => $request->location,
             'label' => $request->label,
-            'photo' => $savePath,
-        ]);
+        ])->id;
+
+        if ($request->hasFile('photo')) {
+            $photos = $request->file('photo');
+            foreach($photos as $photo)
+            {
+                $dir = 'users/' . Auth::user()->name . '/';
+                $newFileName = md5(time() . rand(0, 10000)) . '.' . $photo->getClientOriginalExtension();
+                $savePath = $dir . $newFileName;
+                Storage::put(
+                    $savePath,
+                    file_get_contents($photo->getRealPath())
+                );
+                DB::insert('insert into lm_photos (event_id, url) values (?, ?)', [$event_id, $savePath]);
+            }
+        } else {
+            $savePath = '';
+        }
 
         return redirect('/events');
     }
